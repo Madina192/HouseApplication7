@@ -9,9 +9,9 @@ import com.example.houseapplication7.R
 import com.example.houseapplication7.data.models.Camera
 import com.example.houseapplication7.databinding.ItemCameraBinding
 
-class CameraAdapter : Adapter<CameraAdapter.CameraViewHolder>() {
+open class CameraAdapter : Adapter<CameraAdapter.CameraViewHolder>() {
 
-    private val list = arrayListOf(
+    open val list = arrayListOf(
         Camera(
             1,
             "Камера 1",
@@ -42,7 +42,7 @@ class CameraAdapter : Adapter<CameraAdapter.CameraViewHolder>() {
                 false
             )
         )
-    }
+  }
 
     override fun getItemCount(): Int = list.size
 

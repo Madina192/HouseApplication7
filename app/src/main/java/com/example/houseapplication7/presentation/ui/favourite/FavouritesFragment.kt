@@ -1,4 +1,4 @@
-package com.example.houseapplication7.presentation.ui
+package com.example.houseapplication7.presentation.ui.favourite
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,5 +16,9 @@ class FavouritesFragment : Fragment() {
     ): View {
         binding = FragmentFavouritesBinding.inflate(layoutInflater)
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 }

@@ -3,6 +3,8 @@ package com.example.houseapplication7.di
 import android.content.Context
 import androidx.room.Room
 import com.example.houseapplication7.data.db.HouseDatabase
+import com.example.houseapplication7.data.db.dao.CameraDao
+import com.example.houseapplication7.data.db.dao.DoorDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,8 +18,8 @@ object DIModule {
 
     @Singleton
     @Provides
-    fun provideRoomDatabase(@ApplicationContext context: Context) {
-        Room.databaseBuilder(
+    fun provideRoomDatabase(@ApplicationContext context: Context) : HouseDatabase{
+        return Room.databaseBuilder(
             context = context,
             klass = HouseDatabase::class.java,
             "house_database"
@@ -25,12 +27,12 @@ object DIModule {
     }
 
     @Provides
-    fun provideCameraDao(roomDatabase : HouseDatabase){
-        roomDatabase.getCameraDao()
+    fun provideCameraDao(roomDatabase : HouseDatabase) : CameraDao{
+        return roomDatabase.getCameraDao()
     }
 
     @Provides
-    fun provideDoorDao(roomDatabase : HouseDatabase){
-        roomDatabase.getDoorDao()
+    fun provideDoorDao(roomDatabase : HouseDatabase) : DoorDao{
+        return roomDatabase.getDoorDao()
     }
 }

@@ -1,5 +1,6 @@
 package com.example.houseapplication7.presentation.ui.camera
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.Adapter
@@ -11,28 +12,13 @@ import com.example.houseapplication7.databinding.ItemCameraBinding
 
 open class CameraAdapter : Adapter<CameraAdapter.CameraViewHolder>() {
 
-    open val list = arrayListOf(
-        Camera(
-            1,
-            "Камера 1",
-            "https://serverspace.ru/wp-content/uploads/2019/06/backup-i-snapshot.png"
-        ),
-        Camera(
-            2,
-            "Камера 2",
-            "https://serverspace.ru/wp-content/uploads/2019/06/backup-i-snapshot.png"
-        ),
-        Camera(
-            3,
-            "Камера 3",
-            "https://serverspace.ru/wp-content/uploads/2019/06/backup-i-snapshot.png"
-        ),
-        Camera(
-            4,
-            "Камера 4",
-            "https://serverspace.ru/wp-content/uploads/2019/06/backup-i-snapshot.png"
-        )
-    )
+    private var list = mutableListOf<Camera>()
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun setList(model: List<Camera>) {
+        list = model as MutableList<Camera>
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CameraViewHolder {
         return CameraViewHolder(
@@ -42,7 +28,7 @@ open class CameraAdapter : Adapter<CameraAdapter.CameraViewHolder>() {
                 false
             )
         )
-  }
+    }
 
     override fun getItemCount(): Int = list.size
 
@@ -55,9 +41,9 @@ open class CameraAdapter : Adapter<CameraAdapter.CameraViewHolder>() {
         fun onBind(camera: Camera) {
             with(binding) {
                 tvName.text = camera.name
-                Glide.with(ivCamera).load(camera.image).into(ivCamera)
+                Glide.with(ivCamera).load(camera).into(ivCamera)
                 ivFavIcon.setOnClickListener {
-                    if(camera.isFavourite) {
+                    if (camera.isFavourite) {
                         ivFavIcon.setImageResource(R.drawable.icon_star_empty)
                     } else {
                         ivFavIcon.setImageResource(R.drawable.icon_star_full)

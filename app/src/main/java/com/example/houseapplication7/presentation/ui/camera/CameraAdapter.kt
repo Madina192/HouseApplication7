@@ -12,11 +12,11 @@ import com.example.houseapplication7.databinding.ItemCameraBinding
 
 open class CameraAdapter : Adapter<CameraAdapter.CameraViewHolder>() {
 
-    private var list = mutableListOf<Camera>()
+    private var list = listOf<Camera>()
 
     @SuppressLint("NotifyDataSetChanged")
     fun setList(model: List<Camera>) {
-        list = model as MutableList<Camera>
+        list = model
         notifyDataSetChanged()
     }
 
@@ -41,7 +41,7 @@ open class CameraAdapter : Adapter<CameraAdapter.CameraViewHolder>() {
         fun onBind(camera: Camera) {
             with(binding) {
                 tvName.text = camera.name
-                Glide.with(ivCamera).load(camera).into(ivCamera)
+                Glide.with(ivCamera).load(camera.image.toString()).into(ivCamera)
                 ivFavIcon.setOnClickListener {
                     if (camera.isFavourite) {
                         ivFavIcon.setImageResource(R.drawable.icon_star_empty)

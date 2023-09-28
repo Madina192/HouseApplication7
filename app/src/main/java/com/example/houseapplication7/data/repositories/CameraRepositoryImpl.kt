@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import com.example.houseapplication7.data.models.Camera
 import com.example.houseapplication7.data.retrofit.RetrofitService
+import com.example.houseapplication7.domain.models.CameraList
 import com.example.houseapplication7.domain.models.CameraModel
 import com.example.houseapplication7.domain.repositories.CameraRepository
 import retrofit2.Call
@@ -20,16 +21,13 @@ class CameraRepositoryImpl : CameraRepository {
     override fun getResult(): MutableLiveData<List<Camera>> {
         //val listOfCameras = ArrayList<Camera>()
         val liveData = MutableLiveData<List<Camera>>()
-        RetrofitService.apiService.getCameras().enqueue(object : Callback<List<Camera>> {
-            override fun onResponse(
-                call: Call<List<Camera>>,
-                response: Response<List<Camera>>
-            ) {
-                //listOfCameras.add(response.body())
-                liveData.postValue(response.body())
+        RetrofitService.apiService.getCameras().enqueue(object : Callback<CameraList> {
+
+            override fun onResponse(call: Call<CameraList>, response: Response<CameraList>) {
+                liveData.postValue(response.body()?.cameras)
             }
 
-            override fun onFailure(call: Call<List<Camera>>, t: Throwable) {
+            override fun onFailure(call: Call<CameraList>, t: Throwable) {
                 Log.e(TAG, "onFailure: ${t.message}")
             }
 

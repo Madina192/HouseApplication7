@@ -1,6 +1,6 @@
 package com.example.houseapplication7.presentation.ui.camera
 
-import android.content.ContentValues.TAG
+import android.content.ContentValues
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -25,18 +25,16 @@ class CameraFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
+        binding.recyclerView.adapter = adapter
         addElements()
     }
 
-    private fun initViews() {
-        binding.recyclerView.adapter = adapter
-    }
-
     private fun addElements() {
-        cameraViewModel.getCameras().observe(requireActivity()) {
-            adapter.setList(it)
-            Log.e("ololo", "addElements: $it")
+        cameraViewModel.getCameras().observe(requireActivity()) { cameras ->
+            if (cameras != null) {
+                adapter.setList(cameras)
+                Log.e(ContentValues.TAG, "cameras: $cameras") //just to check
+            }
         }
     }
 }

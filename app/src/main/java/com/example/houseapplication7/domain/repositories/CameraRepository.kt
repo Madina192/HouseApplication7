@@ -2,6 +2,7 @@ package com.example.houseapplication7.domain.repositories
 
 import androidx.lifecycle.MutableLiveData
 import com.example.houseapplication7.data.models.Camera
+import com.example.houseapplication7.domain.models.CameraList
 import com.example.houseapplication7.domain.models.CameraModel
 
 interface CameraRepository {

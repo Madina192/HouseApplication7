@@ -1,13 +1,13 @@
 package com.example.houseapplication7.presentation.ui.camera
 
-import android.content.ContentValues
+import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.houseapplication7.databinding.FragmentCameraBinding
 
 class CameraFragment : Fragment() {
@@ -23,9 +23,12 @@ class CameraFragment : Fragment() {
         return binding.root
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
+        adapter.notifyDataSetChanged()
         addElements()
     }
 
@@ -33,7 +36,6 @@ class CameraFragment : Fragment() {
         cameraViewModel.getCameras().observe(requireActivity()) { cameras ->
             if (cameras != null) {
                 adapter.setList(cameras)
-                Log.e(ContentValues.TAG, "cameras: $cameras") //just to check
             }
         }
     }

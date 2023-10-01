@@ -12,5 +12,5 @@ data class Camera(
     @SerializedName("snapshot")
     val image: String ?= null,
     var isFavourite : Boolean = false
-) : java.io.Serializable
+)
 

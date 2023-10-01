@@ -5,6 +5,8 @@ import androidx.room.Room
 import com.example.houseapplication7.data.db.HouseDatabase
 import com.example.houseapplication7.data.db.dao.CameraDao
 import com.example.houseapplication7.data.db.dao.DoorDao
+import com.example.houseapplication7.data.repositories.CameraRepositoryImpl
+import com.example.houseapplication7.data.repositories.DoorRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,5 +36,19 @@ object DIModule {
     @Provides
     fun provideDoorDao(roomDatabase : HouseDatabase) : DoorDao{
         return roomDatabase.getDoorDao()
+    }
+
+    @Provides
+    fun provideCameraRepository(
+        cameraDao: CameraDao
+    ) : CameraRepositoryImpl{
+        return CameraRepositoryImpl(cameraDao)
+    }
+
+    @Provides
+    fun provideDoorRepository(
+        doorDao: DoorDao
+    ) : DoorRepositoryImpl{
+        return DoorRepositoryImpl(doorDao)
     }
 }

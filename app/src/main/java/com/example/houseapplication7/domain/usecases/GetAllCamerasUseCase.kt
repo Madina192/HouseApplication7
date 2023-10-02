@@ -1,4 +1,12 @@
 package com.example.houseapplication7.domain.usecases
 
-class GetAllCamerasUseCase {
+import com.example.houseapplication7.data.repositories.CameraRepositoryImpl
+import javax.inject.Inject
+
+class GetAllCamerasUseCase @Inject constructor(
+    private val repository : CameraRepositoryImpl
+){
+    suspend fun getAllDoors() = repository.getAllCameras()
+
+    suspend fun getResult() = repository.getResult()
 }

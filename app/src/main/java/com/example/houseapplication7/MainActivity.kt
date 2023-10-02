@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.houseapplication7.databinding.ActivityMainBinding
 import com.example.houseapplication7.presentation.ui.ViewPagerAdapter
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private val viewPagerAdapter = ViewPagerAdapter(supportFragmentManager, lifecycle)

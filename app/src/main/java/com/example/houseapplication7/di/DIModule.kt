@@ -20,7 +20,7 @@ object DIModule {
 
     @Singleton
     @Provides
-    fun provideRoomDatabase(@ApplicationContext context: Context) : HouseDatabase{
+    fun provideRoomDatabase(@ApplicationContext context: Context): HouseDatabase {
         return Room.databaseBuilder(
             context = context,
             klass = HouseDatabase::class.java,
@@ -29,26 +29,22 @@ object DIModule {
     }
 
     @Provides
-    fun provideCameraDao(roomDatabase : HouseDatabase) : CameraDao{
+    fun provideCameraDao(roomDatabase: HouseDatabase): CameraDao {
         return roomDatabase.getCameraDao()
     }
 
     @Provides
-    fun provideDoorDao(roomDatabase : HouseDatabase) : DoorDao{
+    fun provideDoorDao(roomDatabase: HouseDatabase): DoorDao {
         return roomDatabase.getDoorDao()
     }
 
     @Provides
     fun provideCameraRepository(
         cameraDao: CameraDao
-    ) : CameraRepositoryImpl{
-        return CameraRepositoryImpl(cameraDao)
-    }
+    ): CameraRepositoryImpl = CameraRepositoryImpl(cameraDao)
 
     @Provides
     fun provideDoorRepository(
         doorDao: DoorDao
-    ) : DoorRepositoryImpl{
-        return DoorRepositoryImpl(doorDao)
-    }
+    ): DoorRepositoryImpl = DoorRepositoryImpl(doorDao)
 }

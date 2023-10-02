@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.RecyclerView.Adapter
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
 import com.bumptech.glide.Glide
 import com.example.houseapplication7.R
-import com.example.houseapplication7.data.models.Camera
 import com.example.houseapplication7.databinding.ItemCameraBinding
+import com.example.houseapplication7.domain.models.CameraModel
 
 open class CameraAdapter : Adapter<CameraAdapter.CameraViewHolder>() {
 
-    private var list = listOf<Camera>()
+    private var list = listOf<CameraModel>()
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(model: List<Camera>) {
+    fun setList(model: List<CameraModel>) {
         list = model
         notifyDataSetChanged()
     }
@@ -38,7 +38,7 @@ open class CameraAdapter : Adapter<CameraAdapter.CameraViewHolder>() {
 
     inner class CameraViewHolder(private val binding: ItemCameraBinding) :
         ViewHolder(binding.root) {
-        fun onBind(camera: Camera) {
+        fun onBind(camera: CameraModel) {
             with(binding) {
                 tvName.text = camera.name
                 Glide.with(ivCamera).load(camera.image.toString()).into(ivCamera)

@@ -1,12 +1,10 @@
 package com.example.houseapplication7.domain.models
 
-import com.example.houseapplication7.data.models.Camera
-
 data class CameraList(
-    var data: Data
+    var data: CameraData
 )
 
-data class Data(
-    var cameras: List<Camera>
+data class CameraData(
+    var cameras: List<CameraModel>
 )
 

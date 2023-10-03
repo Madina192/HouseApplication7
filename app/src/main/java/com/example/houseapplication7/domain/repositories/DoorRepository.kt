@@ -11,7 +11,7 @@ interface DoorRepository {
 
     suspend fun getAllDoors(): Flow<Resource<List<DoorModel>>>
 
-    fun getResult() : MutableLiveData<List<Door>>
+    suspend fun getResult() : Flow<List<DoorModel>>
 
     suspend fun insertDoor(door: DoorModel): Unit
 

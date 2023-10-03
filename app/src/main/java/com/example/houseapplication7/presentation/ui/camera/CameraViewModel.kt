@@ -8,7 +8,6 @@ import com.example.houseapplication7.data.repositories.CameraRepositoryImpl
 import com.example.houseapplication7.domain.models.CameraModel
 import com.example.houseapplication7.domain.usecases.GetAllCamerasUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,17 +18,17 @@ class CameraViewModel @Inject constructor(private val repositoryImpl: CameraRepo
     private val camerasUseCase = GetAllCamerasUseCase(repositoryImpl)
 
     val cameraList = MutableLiveData<List<CameraModel>>()
-    fun getCameras(): MutableLiveData<List<CameraModel>> {
+
+    init {
+        getCameras()
+    }
+
+    fun getCameras() {
         viewModelScope.launch {
-            camerasUseCase.getResult()
-                .catch { e ->
-                    Log.e("ololo", "getCameras: ${e.message}")
-                }
-                .collect { response ->
-                    cameraList.value = response
-                    Log.d("ololo", "getCameras: ${response}")
-                }
+            camerasUseCase.getResult().collect { response ->
+                cameraList.postValue(response)
+                Log.d("ololo", "getCameras: ${response}")
+            }
         }
-        return cameraList
     }
 }

@@ -7,8 +7,10 @@ import com.example.houseapplication7.data.utils.mapToDoorModel
 import com.example.houseapplication7.domain.models.DoorModel
 import com.example.houseapplication7.domain.repositories.DoorRepository
 import com.example.houseapplication7.domain.utils.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class DoorRepositoryImpl @Inject constructor(
@@ -33,7 +35,7 @@ class DoorRepositoryImpl @Inject constructor(
             if (data != null) {
                 emit(data)
             }
-        }
+        }.flowOn(Dispatchers.IO)
     }
 
     override suspend fun insertDoor(door: DoorModel) {

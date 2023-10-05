@@ -18,7 +18,6 @@ fun List<Door>.mapToDoorModel() = this.map { door ->
     DoorModel(
         id = door.id,
         name = door.name,
-        image = door.image,
         isFavourite = door.isFavourite
     )
 }
@@ -35,6 +34,5 @@ fun DoorModel.convertToDoor() =
     Door(
         id = this.id,
         name = this.name,
-        image = this.image,
         isFavourite = this.isFavourite
     )

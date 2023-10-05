@@ -7,8 +7,10 @@ import com.example.houseapplication7.data.utils.mapToCameraModel
 import com.example.houseapplication7.domain.models.CameraModel
 import com.example.houseapplication7.domain.repositories.CameraRepository
 import com.example.houseapplication7.domain.utils.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
 class CameraRepositoryImpl @Inject constructor(
@@ -33,7 +35,7 @@ class CameraRepositoryImpl @Inject constructor(
             if (data != null) {
                 emit(data)
             }
-        }
+        }.flowOn(Dispatchers.IO)
     }
 
     override suspend fun insertCamera(camera: CameraModel) {

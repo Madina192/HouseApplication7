@@ -3,6 +3,7 @@ package com.example.houseapplication7.data.repositories
 import com.example.houseapplication7.data.db.dao.CameraDao
 import com.example.houseapplication7.data.retrofit.RetrofitService
 import com.example.houseapplication7.data.utils.convertToCamera
+import com.example.houseapplication7.data.utils.mapToCameraList
 import com.example.houseapplication7.data.utils.mapToCameraModel
 import com.example.houseapplication7.domain.models.CameraModel
 import com.example.houseapplication7.domain.repositories.CameraRepository
@@ -34,12 +35,13 @@ class CameraRepositoryImpl @Inject constructor(
             var data = RetrofitService.apiService.getCameras().body()?.data?.cameras
             if (data != null) {
                 emit(data)
+                cameraDao.insertCamera(data.mapToCameraList())
             }
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun insertCamera(camera: CameraModel) {
-        cameraDao.insertCamera(camera.convertToCamera())
+    override suspend fun insertCamera(cameras: List<CameraModel>) {
+        TODO()
     }
 
     override suspend fun updateCamera(camera: CameraModel) {

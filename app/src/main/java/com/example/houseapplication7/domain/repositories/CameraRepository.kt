@@ -10,7 +10,7 @@ interface CameraRepository {
 
     suspend fun getResult() : Flow<List<CameraModel>>
 
-    suspend fun insertCamera(camera: CameraModel): Unit
+    suspend fun insertCamera(cameras: List<CameraModel>): Unit
 
     suspend fun updateCamera(camera: CameraModel): Unit
 

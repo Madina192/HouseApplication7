@@ -6,7 +6,5 @@ import javax.inject.Inject
 class GetAllCamerasUseCase @Inject constructor(
     private val repository : CameraRepositoryImpl
 ){
-    suspend fun getAllDoors() = repository.getAllCameras()
-
-    suspend fun getResult() = repository.getResult()
+    suspend fun getAllCameras() = repository.getAllCameras()
 }

@@ -5,11 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.houseapplication7.databinding.FragmentDoorBinding
+import com.example.houseapplication7.presentation.utils.UIState
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 
@@ -34,14 +36,39 @@ class DoorFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
-        addElements()
+        //addElements()
     }
 
-    private fun addElements() {
+//    private fun addElements() {
+//        lifecycleScope.launch {
+//            doorViewModel.doorList.observe(requireActivity()) { response ->
+//                if (response != null) {
+//                    adapter.setList(response)
+//                }
+//            }
+//        }
+//    }
+
+    private fun getDoorsData() {
+        doorViewModel.getAllDoors()
         lifecycleScope.launch {
-            doorViewModel.doorList.observe(requireActivity()) { response ->
-                if (response != null) {
-                    adapter.setList(response)
+            doorViewModel._doorsList.collect{state ->
+                when(state) {
+                    is UIState.Loading -> {
+                        binding.progressBar.visibility = View.VISIBLE
+                        binding.recyclerView.visibility = View.GONE
+                    }
+                    is UIState.Success -> {
+                        binding.progressBar.visibility = View.GONE
+                        binding.recyclerView.visibility = View.VISIBLE
+                    }
+                    is UIState.Empty -> {
+                        binding.progressBar.visibility = View.GONE
+                    }
+                    is UIState.Error -> {
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(requireContext(), state.message, Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

@@ -3,6 +3,7 @@ package com.example.houseapplication7.data.repositories
 import com.example.houseapplication7.data.db.dao.DoorDao
 import com.example.houseapplication7.data.retrofit.RetrofitService
 import com.example.houseapplication7.data.utils.convertToDoor
+import com.example.houseapplication7.data.utils.mapToDoorList
 import com.example.houseapplication7.data.utils.mapToDoorModel
 import com.example.houseapplication7.domain.models.DoorModel
 import com.example.houseapplication7.domain.repositories.DoorRepository
@@ -34,12 +35,13 @@ class DoorRepositoryImpl @Inject constructor(
             var data = RetrofitService.apiService.getDoors().body()?.data?.doors
             if (data != null) {
                 emit(data)
+                doorDao.insertDoor(data.mapToDoorList())
             }
         }.flowOn(Dispatchers.IO)
     }
 
-    override suspend fun insertDoor(door: DoorModel) {
-        doorDao.insertDoor(door.convertToDoor())
+    override suspend fun insertDoor(doors: List<DoorModel>) {
+        TODO()
     }
 
     override suspend fun updateDoor(door: DoorModel) {

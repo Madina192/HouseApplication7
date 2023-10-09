@@ -7,6 +7,4 @@ class GetAllDoorsUseCase @Inject constructor(
     private val repository : DoorRepositoryImpl
 ){
     suspend fun getAllDoors() = repository.getAllDoors()
-
-    suspend fun getResult() = repository.getResult()
 }

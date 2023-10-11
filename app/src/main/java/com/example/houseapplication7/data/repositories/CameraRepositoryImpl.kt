@@ -30,11 +30,11 @@ class CameraRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getResult(): Flow<List<CameraModel>> {
+    override suspend fun getResult(): Flow<Resource<List<CameraModel>>> {
         return flow {
-            var data = RetrofitService.apiService.getCameras().body()?.data?.cameras
+            val data = RetrofitService.apiService.getCameras().body()?.data?.cameras
             if (data != null) {
-                emit(data)
+                emit(Resource.Success(data))
                 cameraDao.insertCamera(data.mapToCameraList())
             }
         }.flowOn(Dispatchers.IO)

@@ -36,19 +36,10 @@ class DoorFragment : Fragment() {
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
         binding.recyclerView.adapter = adapter
         adapter.notifyDataSetChanged()
-        //addElements()
+        getDoorsData()
     }
 
-//    private fun addElements() {
-//        lifecycleScope.launch {
-//            doorViewModel.doorList.observe(requireActivity()) { response ->
-//                if (response != null) {
-//                    adapter.setList(response)
-//                }
-//            }
-//        }
-//    }
-
+    @SuppressLint("NotifyDataSetChanged")
     private fun getDoorsData() {
         doorViewModel.getAllDoors()
         lifecycleScope.launch {
@@ -61,6 +52,10 @@ class DoorFragment : Fragment() {
                     is UIState.Success -> {
                         binding.progressBar.visibility = View.GONE
                         binding.recyclerView.visibility = View.VISIBLE
+                        binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
+                        binding.recyclerView.adapter = adapter
+                        adapter.notifyDataSetChanged()
+                        adapter.setList(state.data!!)
                     }
                     is UIState.Empty -> {
                         binding.progressBar.visibility = View.GONE

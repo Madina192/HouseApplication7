@@ -8,7 +8,7 @@ interface CameraRepository {
 
     suspend fun getAllCameras(): Flow<Resource<List<CameraModel>>>
 
-    suspend fun getResult() : Flow<List<CameraModel>>
+    suspend fun getResult() : Flow<Resource<List<CameraModel>>>
 
     suspend fun insertCamera(cameras: List<CameraModel>): Unit
 

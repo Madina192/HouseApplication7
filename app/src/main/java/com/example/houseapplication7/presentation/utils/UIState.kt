@@ -5,7 +5,7 @@ sealed class UIState<T>(
     val message: String? = null
 ) {
     class Loading<T>() : UIState<T>()
-    class Success<T>(data: T?) : UIState<T>()
+    class Success<T>(data: T?) : UIState<T>(data = data)
     class Empty<T> : UIState<T>()
-    class Error<T>(message: String?) : UIState<T>()
+    class Error<T>(message: String?) : UIState<T>(message = message)
 }

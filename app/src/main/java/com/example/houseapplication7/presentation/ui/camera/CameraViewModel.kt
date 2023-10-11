@@ -11,6 +11,7 @@ import com.example.houseapplication7.presentation.utils.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,9 +19,9 @@ import javax.inject.Inject
 class CameraViewModel @Inject constructor(private val getAllCamerasUseCase: GetAllCamerasUseCase) :
     ViewModel() {
 
-    var _cameraList: MutableStateFlow<UIState<List<CameraModel>>> =
+    private val _cameraList: MutableStateFlow<UIState<List<CameraModel>>> =
         MutableStateFlow(UIState.Loading())
-    private val camerasList: StateFlow<UIState<List<CameraModel>>> = _cameraList
+    val camerasList: StateFlow<UIState<List<CameraModel>>> = _cameraList
 
     fun getAllCameras() {
         viewModelScope.launch {
@@ -42,4 +43,27 @@ class CameraViewModel @Inject constructor(private val getAllCamerasUseCase: GetA
             }
         }
     }
+
+    fun getResult(){
+        viewModelScope.launch {
+            getAllCamerasUseCase.getResult().collect{ resource ->
+                when(resource) {
+                    is Resource.Loading -> _cameraList.value = UIState.Loading()
+                    is Resource.Success -> {
+                        if (resource.data != null) {
+                            _cameraList.value = UIState.Success(data = resource.data)
+                            Log.d("ololo", "getResult: ${_cameraList}")
+                        } else {
+                            _cameraList.value = UIState.Empty()
+                        }
+                    }
+
+                    is Resource.Error -> _cameraList.value =
+                        UIState.Error(message = resource.message ?: "Error")
+                }
+            }
+        }
+    }
+
+
 }

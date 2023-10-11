@@ -7,4 +7,7 @@ class GetAllCamerasUseCase @Inject constructor(
     private val repository : CameraRepositoryImpl
 ){
     suspend fun getAllCameras() = repository.getAllCameras()
+
+    suspend fun getResult() = repository.getResult()
+
 }

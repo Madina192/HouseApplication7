@@ -17,7 +17,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class CameraFragment : Fragment() {
+class CameraFragment @Inject constructor(): Fragment() {
     private lateinit var binding: FragmentCameraBinding
     private val adapter = CameraAdapter()
     private val cameraViewModel: CameraViewModel by viewModels()
@@ -40,7 +40,7 @@ class CameraFragment : Fragment() {
     private fun getCamerasData() {
         cameraViewModel.getAllCameras()
         lifecycleScope.launch {
-            cameraViewModel._cameraList.collect { state ->
+            cameraViewModel.camerasList.collect { state ->
                 when (state) {
                     is UIState.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE
@@ -53,7 +53,7 @@ class CameraFragment : Fragment() {
                         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
                         binding.recyclerView.adapter = adapter
                         adapter.notifyDataSetChanged()
-                        state.data?.let { adapter.setList(it) }
+                        adapter.setList(state.data!!)
                     }
 
                     is UIState.Empty -> {

@@ -43,7 +43,7 @@ class DoorFragment : Fragment() {
     private fun getDoorsData() {
         doorViewModel.getAllDoors()
         lifecycleScope.launch {
-            doorViewModel._doorsList.collect{state ->
+            doorViewModel.doorsList.collect{state ->
                 when(state) {
                     is UIState.Loading -> {
                         binding.progressBar.visibility = View.VISIBLE

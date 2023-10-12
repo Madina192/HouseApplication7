@@ -1,6 +1,5 @@
 package com.example.houseapplication7.presentation.ui.camera
 
-import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +10,6 @@ import com.example.houseapplication7.presentation.utils.UIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -44,10 +42,10 @@ class CameraViewModel @Inject constructor(private val getAllCamerasUseCase: GetA
         }
     }
 
-    fun getResult(){
+    fun getResult() {
         viewModelScope.launch {
-            getAllCamerasUseCase.getResult().collect{ resource ->
-                when(resource) {
+            getAllCamerasUseCase.getResult().collect { resource ->
+                when (resource) {
                     is Resource.Loading -> _cameraList.value = UIState.Loading()
                     is Resource.Success -> {
                         if (resource.data != null) {

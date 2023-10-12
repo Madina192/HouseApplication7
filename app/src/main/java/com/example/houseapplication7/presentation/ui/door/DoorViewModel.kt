@@ -17,8 +17,8 @@ import javax.inject.Inject
 class DoorViewModel @Inject constructor(private val getAllDoorsUseCase: GetAllDoorsUseCase) :
     ViewModel() {
 
-    var _doorsList: MutableStateFlow<UIState<List<DoorModel>>> = MutableStateFlow(UIState.Loading())
-    private val doorsList: StateFlow<UIState<List<DoorModel>>> = _doorsList
+    private val _doorsList: MutableStateFlow<UIState<List<DoorModel>>> = MutableStateFlow(UIState.Loading())
+    val doorsList: StateFlow<UIState<List<DoorModel>>> = _doorsList
 
     fun getAllDoors() {
         viewModelScope.launch {
